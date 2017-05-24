@@ -1,0 +1,7 @@
+---
+# Role default lower priority variables
+
+# Default ansible user and password to setup images
+
+docker_presets_ansible_user: root
+docker_presets_ansible_password: root

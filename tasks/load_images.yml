@@ -1,0 +1,31 @@
+---
+# Load default images options
+
+- block:
+
+  - name: search image presets
+    find:
+      paths: "{{ role_path }}/defaults/images"
+      patterns: "*.yml"
+    register: docker_presets_search_images_result
+
+  - name: load image presets
+    include_vars:
+      file: "{{ file.path }}"
+      name: docker_presets_image
+    with_items: "{{ docker_presets_search_images_result.files }}"
+    loop_control:
+      label: "{{ file.path }}"
+      loop_var: file
+    register: docker_presets_load_images_result
+
+  - name: setup fact with default images
+    set_fact:
+      docker_presets_images: >-
+        {{ docker_presets_load_images_result.results
+          | map(attribute="ansible_facts.docker_presets_image")
+          | list }}
+
+  tags:
+    - role::docker_presets
+    - role::docker_presets::images

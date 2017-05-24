@@ -1,0 +1,7 @@
+---
+# Centos 7 container
+
+name: centos_7
+image: centos_7
+volumes:
+  - /sys/fs/cgroup:/sys/fs/cgroup:ro

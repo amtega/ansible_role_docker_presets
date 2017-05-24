@@ -1,0 +1,25 @@
+---
+# Tasks for tesing role
+
+- name: test docker_presets role
+  hosts: localhost
+  roles:
+    - docker_presets
+  tasks:
+    - assert:
+        that:
+          - docker_presets_images | length > 0
+
+          - docker_presets_containers | length > 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0

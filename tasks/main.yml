@@ -1,0 +1,14 @@
+---
+# Role tasks
+
+- name: load images
+  include: load_images.yml
+  tags:
+    - role::docker_presets
+    - role::docker_presets::images
+
+- name: load default containers
+  include: load_containers.yml
+  tags:
+    - role::docker_presets
+    - role::docker_presets::containers

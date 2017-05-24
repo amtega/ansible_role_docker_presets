@@ -1,0 +1,9 @@
+---
+# Centos 6 image
+
+name: centos_6
+dockerfile: Dockerfile.centos_6
+buildargs:
+  user: "{{ docker_presets_ansible_user }}"
+  password: "{{ docker_presets_ansible_password }}"
+path: "{{ role_path }}/files"

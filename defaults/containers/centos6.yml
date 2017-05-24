@@ -1,0 +1,5 @@
+---
+# Centos 6 container
+
+name: centos_6
+image: centos_6
