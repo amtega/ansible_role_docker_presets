@@ -1,13 +1,13 @@
 ---
 # Role tasks
 
-- name: load images
+- name: load images presets
   include: load_images.yml
   tags:
     - role::docker_presets
     - role::docker_presets::images
 
-- name: load default containers
+- name: load containers presets
   include: load_containers.yml
   tags:
     - role::docker_presets

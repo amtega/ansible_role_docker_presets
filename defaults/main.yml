@@ -1,7 +1,9 @@
 ---
 # Role default lower priority variables
 
-# Default ansible user and password to setup images
+# Default ansible user and password to build images. The values of these
+# variables are added to the image presets in the 'buildargs' attribute as
+# 'user' and 'password' keys.
 
-docker_presets_ansible_user: root
-docker_presets_ansible_password: root
+docker_presets_user: root
+docker_presets_password: root

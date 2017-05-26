@@ -1,7 +1,11 @@
 ---
-# Load default images options
+# Load images presets
 
 - block:
+
+  - name: setup fact with image build path
+    set_fact:
+      docker_presets_build_path: "{{ role_path }}/files"
 
   - name: search image presets
     find:
@@ -19,12 +23,19 @@
       loop_var: file
     register: docker_presets_load_images_result
 
-  - name: setup fact with default images
+  - name: setup fact with images presets
     set_fact:
       docker_presets_images: >-
         {{ docker_presets_load_images_result.results
           | map(attribute="ansible_facts.docker_presets_image")
-          | list }}
+          | list
+          | docker_presets_add_attributes(
+              { 'path': docker_presets_build_path,
+                'buildargs':
+                  { 'user': docker_presets_user,
+                    'password': docker_presets_password
+                  }
+              }) }}
 
   tags:
     - role::docker_presets
