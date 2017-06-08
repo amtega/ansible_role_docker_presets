@@ -1,4 +1,4 @@
-# docker_presets
+# Ansible docker_presets role
 
 This is an [Ansible](http://www.ansible.com) role to setup a set of facts with docker images and containers.
 
