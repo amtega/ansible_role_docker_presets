@@ -35,4 +35,4 @@ VOLUME ["/run"]
 
 EXPOSE 22
 
-CMD ["/usr/sbin/init"]
+CMD ["/usr/sbin/sshd", "-D"]

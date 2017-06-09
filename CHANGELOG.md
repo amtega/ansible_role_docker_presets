@@ -7,3 +7,8 @@
 ## 2017-06-05
 
 - Improved documentation in README.md file.
+
+## 2017-06-09
+
+- Fixed centos 6 image.
+- Fixed centos 7 image.
