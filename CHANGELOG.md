@@ -12,3 +12,7 @@
 
 - Fixed centos 6 image.
 - Fixed centos 7 image.
+
+## 2017-06-15
+
+- Improve role structura.
