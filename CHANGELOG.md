@@ -16,3 +16,7 @@
 ## 2017-06-15
 
 - Improve role structura.
+
+## 2017-07-03
+
+- Fixed centos7 image start command.

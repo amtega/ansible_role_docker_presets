@@ -35,4 +35,6 @@ VOLUME ["/run"]
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
+# Setup start script
+
+CMD ["/usr/sbin/init"]
