@@ -20,3 +20,7 @@
 ## 2017-07-03
 
 - Fixed centos7 image start command.
+
+## 2017-07-18
+
+- Allow non root users to login in centos 6 and 7.

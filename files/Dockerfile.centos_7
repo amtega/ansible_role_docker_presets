@@ -21,6 +21,9 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
+# Setup some basic tools
+RUN yum -y install less
+
 # Setup ssh
 RUN yum -y install openssh-server sudo openssh-clients
 RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -29,6 +32,8 @@ RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
 RUN echo "$user:$password" | chpasswd
 RUN systemctl enable sshd.service
+RUN rm -f /var/run/nologin /etc/nologin
+RUN rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf
 
 VOLUME [ "/sys/fs/cgroup" ]
 VOLUME ["/run"]
