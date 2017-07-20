@@ -22,7 +22,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
 # Setup some basic tools
-RUN yum -y install less
+RUN yum -y install iproute less
 
 # Setup ssh
 RUN yum -y install openssh-server sudo openssh-clients

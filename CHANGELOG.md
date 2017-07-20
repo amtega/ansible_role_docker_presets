@@ -1,6 +1,6 @@
 # Change Log
 
-## 2017-24-05
+## 2017-05-24
 
 - Initial release.
 
@@ -24,3 +24,7 @@
 ## 2017-07-18
 
 - Allow non root users to login in centos 6 and 7.
+
+## 2017-07-18
+
+- Added some basic tools to images.

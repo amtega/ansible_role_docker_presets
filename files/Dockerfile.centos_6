@@ -17,7 +17,7 @@ mv /etc/init/tty.conf /etc/init/tty.conf.disabled; \
 mv /etc/init/start-ttys.conf /etc/init/start-ttys.conf.disabled
 
 # Setup some basic tools
-RUN yum -y install less
+RUN yum -y install iproute less
 
 # Setup ssh
 RUN yum -y install openssh-server openssh-clients
