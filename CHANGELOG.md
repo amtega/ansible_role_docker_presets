@@ -28,3 +28,7 @@
 ## 2017-07-18
 
 - Added some basic tools to images.
+
+## 2017-08-02
+
+- Added docker_presets_repeat filter.

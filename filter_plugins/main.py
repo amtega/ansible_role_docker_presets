@@ -28,15 +28,34 @@ def docker_presets_randomize_names(presets):
         presets (list of dicts): the presets to randomize.
 
     Returns:
-        list of dicts: passed with the name randomized.
+        list of dicts passed with the name randomized.
     """
     for preset in presets:
         if "name" in preset:
             basename = preset["name"]
+        else:
+            basename = "container"
 
-        preset["name"] = "{}_{}".format(basename[-22:], randint(0, 99999999))
+        preset["name"] = "{}_{}".format(basename, randint(0, 99999999))
 
     return presets
+
+def docker_presets_repeat(presets, n):
+    """Repeat a preset list.
+
+    Args:
+        presets (list of dicts): the presets to randomize.
+        n (int): number of times to repeat the preset.
+
+    Returns:
+        list of dicts passed repeated n times.
+    """
+    result = list()
+    for n in range(0, n):
+        for preset in presets:
+            result = result + [preset.copy()]
+
+    return result
 
 class FilterModule(object):
     """Ansible docker_presets filters."""
@@ -44,5 +63,6 @@ class FilterModule(object):
     def filters(self):
         return {
             'docker_presets_add_attributes': docker_presets_add_attributes,
-            'docker_presets_randomize_names': docker_presets_randomize_names
+            'docker_presets_randomize_names': docker_presets_randomize_names,
+            'docker_presets_repeat': docker_presets_repeat
         }

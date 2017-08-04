@@ -23,6 +23,7 @@ The role provides these filters to manipulate the provided presets:
 
 - docker_presets_add_attributes: adds attributes to a set of presets
 - docker_presets_randomize_names: randomize the name attribute in a set of presets
+- docker_presets_repeat filter: repeat a preset a number of times
 
 ## Dependencies
 
@@ -46,6 +47,8 @@ This is an example playbook:
             {{ my_random_containers
                 | docker_presets_add_attributes(
                   {'comment': 'this is a sample'}) }}
+        my_repeated_containers: >-
+            {{ docker_presets_containers | docker_presets_repeat(3) }}
 ```
 
 ## Testing
