@@ -6,7 +6,7 @@ This role provides also some useful filters to manage the presets.
 
 ## Requirements
 
-- Ansible >= 2.0
+- Ansible >= 2.4
 
 ## Role Variables
 

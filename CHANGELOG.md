@@ -32,3 +32,9 @@
 ## 2017-08-02
 
 - Added docker_presets_repeat filter.
+
+## 2017-09-29
+
+- Refactored include directives by include_tasks / import_tasks.
+- Updated documentation.
+- Increased the number of loop devices in images.

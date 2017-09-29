@@ -19,6 +19,10 @@ mv /etc/init/start-ttys.conf /etc/init/start-ttys.conf.disabled
 # Setup some basic tools
 RUN yum -y install iproute less
 
+RUN for ((i=0;i<64;i++)); do \
+[ -e /dev/loop$i ] || mknod -m 0600 /dev/loop$i b 7 $i ; \
+done
+
 # Setup ssh
 RUN yum -y install openssh-server openssh-clients
 RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config

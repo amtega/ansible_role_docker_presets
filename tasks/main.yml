@@ -2,15 +2,13 @@
 # Role tasks
 
 - name: configure images presets
-  include: images.yml
-  static: false
+  include_tasks: images.yml
   tags:
     - role::docker_presets
     - role::docker_presets::images
 
 - name: configure containers presets
-  include: containers.yml
-  static: false
+  include_tasks: containers.yml
   tags:
     - role::docker_presets
     - role::docker_presets::containers
