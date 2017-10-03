@@ -38,3 +38,7 @@
 - Refactored include directives by include_tasks / import_tasks.
 - Updated documentation.
 - Increased the number of loop devices in images.
+
+## 2017-10-03
+
+- Remove loop devices creation from Dockerfiles.
