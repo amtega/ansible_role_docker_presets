@@ -42,3 +42,8 @@
 ## 2017-10-03
 
 - Remove loop devices creation from Dockerfiles.
+
+## 2017-10-06
+
+- Renamed custom filters file to avoid collisions between roles.
+- Improved documentation.

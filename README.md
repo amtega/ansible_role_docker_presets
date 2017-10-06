@@ -8,7 +8,7 @@ This role provides also some useful filters to manage the presets.
 
 - Ansible >= 2.4
 
-## Role Variables
+## Variables
 
 The role reads dynamically the images and containers config from directories 'defaults/images' and 'defaults/containers'.
 
@@ -17,7 +17,7 @@ From the previous directories the role setups dynamically two variables that con
 - docker_presets_images
 - docker_presets_containers
 
-## Role Filters
+## Filters
 
 The role provides these filters to manipulate the provided presets:
 
