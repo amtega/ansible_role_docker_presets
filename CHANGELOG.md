@@ -47,3 +47,7 @@
 
 - Renamed custom filters file to avoid collisions between roles.
 - Improved documentation.
+
+## 2017-10-16
+
+- Added syslog services to preset dockerfiles.
