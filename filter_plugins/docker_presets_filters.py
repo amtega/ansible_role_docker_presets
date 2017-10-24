@@ -3,7 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.errors import AnsibleFilterError
-from random import randint
+from datetime import datetime
+from random import randint, seed
 
 def docker_presets_add_attributes(presets, attributes):
     """Add attributes to a set of presets.
@@ -36,6 +37,7 @@ def docker_presets_randomize_names(presets):
         else:
             basename = "container"
 
+        seed(datetime.now())
         preset["name"] = "{}_{}".format(basename, randint(0, 99999999))
 
     return presets

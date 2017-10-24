@@ -51,3 +51,7 @@
 ## 2017-10-16
 
 - Added syslog services to preset dockerfiles.
+
+## 2017-10-24
+
+- Added seed to docker_presets_randomize_names filter.
