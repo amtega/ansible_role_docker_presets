@@ -2,7 +2,6 @@
 # Load images presets
 
 - block:
-
   - name: setup fact with image build path
     set_fact:
       docker_presets_build_path: "{{ role_path }}/files"
@@ -27,15 +26,12 @@
     set_fact:
       docker_presets_images: >-
         {{ docker_presets_load_images_result.results
-          | map(attribute="ansible_facts.docker_presets_image")
-          | list
-          | docker_presets_add_attributes(
-              { 'path': docker_presets_build_path,
-                'buildargs':
-                  { 'user': docker_presets_user,
-                    'password': docker_presets_password
-                  }
-              }) }}
+           | map(attribute="ansible_facts.docker_presets_image")
+           | list
+           | docker_presets_add_attributes(
+               { 'path': docker_presets_build_path,
+                 'buildargs': { 'user': docker_presets_user,
+                                'password': docker_presets_password } }) }}
 
   tags:
     - role::docker_presets
