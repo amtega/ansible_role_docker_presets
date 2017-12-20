@@ -4,7 +4,7 @@
 - name: test docker_presets role
   hosts: localhost
   roles:
-    - docker_presets
+    - amtega.docker_presets
   tasks:
     - name: test dynamic load of images presets
       assert:
