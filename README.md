@@ -38,7 +38,7 @@ This is an example playbook:
 
 - hosts: all
   roles:
-    - docker_presets
+    - amtega.docker_presets
   tasks:
     - set_fact:
         my_random_containers: >-
@@ -56,7 +56,7 @@ This is an example playbook:
 You can run the tests with the following commands:
 
 ```shell
-$ cd docker_presets/test
+$ cd amtega.docker_presets/test
 $ ansible-playbook main.yml
 ```
 
