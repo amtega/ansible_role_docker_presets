@@ -22,7 +22,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
 # Setup some basic tools
-RUN yum -y install iproute less
+RUN yum -y install python iproute less
 
 # Insall syslog
 RUN yum -y install rsyslog
