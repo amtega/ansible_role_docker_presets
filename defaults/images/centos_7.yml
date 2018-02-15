@@ -1,5 +1,5 @@
 # ---
-# # Centos 7 image
+# Centos 7 image
 
 name: centos_7
 distribution: CentOS

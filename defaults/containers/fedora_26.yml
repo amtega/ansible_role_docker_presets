@@ -1,0 +1,7 @@
+---
+# Fedora 26 container
+
+name: fedora_26
+image: fedora_26
+volumes:
+  - /sys/fs/cgroup:/sys/fs/cgroup:ro

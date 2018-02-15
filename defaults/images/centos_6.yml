@@ -1,5 +1,5 @@
 # ---
-# # Centos 6 image
+# Centos 6 image
 
 name: centos_6
 distribution: CentOS
