@@ -4,7 +4,7 @@ ARG user=root
 ARG password=root
 
 # Update all base packages to keep them fresh
-RUN yum -y update; yum clean all
+RUN dnf -y update; dnf clean all
 
 # Setup systemd
 ENV container docker
@@ -22,13 +22,15 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
 # Setup some basic tools
-RUN yum -y install python iproute less
+RUN dnf -y install yum yum-utils dnf-yum dnf-plugins-core \
+python python-dnf python-dnf-plugins-core \
+python-dnf-plugins-extras-common iproute less
 
 # Insall syslog
-RUN yum -y install rsyslog
+RUN dnf -y install rsyslog
 
 # Setup ssh
-RUN yum -y install openssh-server sudo openssh-clients
+RUN dnf -y install openssh-server sudo openssh-clients
 RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
