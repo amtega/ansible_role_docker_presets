@@ -2,8 +2,14 @@ FROM centos:6
 
 ARG user=root
 ARG password=root
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
 
 ENV container docker
+ENV http_proxy $http_proxy
+ENV https_proxy $https_proxy
+ENV no_proxy $no_proxy
 
 # Update all base packages to keep them fresh
 RUN yum -y update; yum clean all
