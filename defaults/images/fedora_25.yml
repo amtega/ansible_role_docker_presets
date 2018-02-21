@@ -5,7 +5,3 @@ name: fedora_25
 distribution: Fedora
 distribution_version: 25
 dockerfile: Dockerfile.fedora_25
-buildargs:
-  http_proxy: "{{ ansible_env.http_proxy | default('') }}"
-  https_proxy: "{{ ansible_env.https_proxy | default('') }}"
-  dno_proxy: "{{ ansible_env.no_proxy | default('') }}"

@@ -25,18 +25,38 @@
     - name: setup fact with images presets
       set_fact:
         docker_presets_images: >-
-          {{ images | map("combine", extra_buildargs, recursive=true) | list }}
+          {{ images
+             | map("combine", extra_buildargs, recursive=true)
+             | map("combine", http_proxy_buildargs, recursive=true)
+             | map("combine", https_proxy_buildargs, recursive=true)
+             | map("combine", no_proxy_buildargs, recursive=true)
+             | list }}
       vars:
+        images: >-
+          {{ docker_presets_load_images_result.results
+             | map(attribute="ansible_facts.docker_presets_image")
+             | list }}
+
+        http_proxy_buildargs: >-
+          {{ (ansible_env.http_proxy | default('') | length > 0)
+          | ternary({ "buildargs": { "http_proxy": ansible_env.http_proxy }},
+                    {}) }}
+
+        https_proxy_buildargs: >-
+          {{ (ansible_env.https_proxy | default('') | length > 0)
+          | ternary({ "buildargs": { "https_proxy": ansible_env.https_proxy }},
+                    {}) }}
+
+        no_proxy_buildargs: >-
+          {{ (ansible_env.no_proxy | default('') | length > 0)
+          | ternary({ "buildargs": { "no_proxy": ansible_env.no_proxy }},
+                    {}) }}
+
         extra_buildargs:
           path: "{{ docker_presets_build_path }}"
           buildargs:
             user: "{{ docker_presets_user }}"
             password: "{{ docker_presets_password }}"
-
-        images: >-
-          {{ docker_presets_load_images_result.results
-             | map(attribute="ansible_facts.docker_presets_image")
-             | list }}
   tags:
     - role::docker_presets
     - role::docker_presets::images

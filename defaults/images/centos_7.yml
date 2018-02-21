@@ -5,7 +5,3 @@ name: centos_7
 distribution: CentOS
 distribution_version: 7
 dockerfile: Dockerfile.centos_7
-buildargs:
-  http_proxy: "{{ ansible_env.http_proxy | default('') }}"
-  https_proxy: "{{ ansible_env.https_proxy | default('') }}"
-  dno_proxy: "{{ ansible_env.no_proxy | default('') }}"
