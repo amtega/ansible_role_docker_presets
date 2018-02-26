@@ -55,7 +55,7 @@ echo "export http_proxy=\"$http_proxy\"" >> /etc/environment ; \
 fi
 
 RUN if [ x"$https_proxy" != "x" ]; then \
-echo "export http_proxy=\"$https_proxy\"" >> /etc/environment ; \
+echo "export https_proxy=\"$https_proxy\"" >> /etc/environment ; \
 fi
 
 RUN if [ x"$no_proxy" != "x" ]; then \
