@@ -11,8 +11,6 @@ ENV http_proxy=${http_proxy}
 ENV https_proxy=${https_proxy}
 ENV no_proxy=${no_proxy}
 
-RUN echo "----------------------$http_proxy"
-
 # Update all base packages to keep them fresh
 RUN dnf -y update; dnf clean all
 
@@ -49,6 +47,22 @@ RUN echo "$user:$password" | chpasswd
 RUN systemctl enable sshd.service
 RUN rm -f /var/run/nologin /etc/nologin
 RUN rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf
+
+# Setup proxy environment variables
+
+RUN if [ x"$http_proxy" != "x" ]; then \
+echo "export http_proxy=\"$http_proxy\"" >> /etc/environment ; \
+fi
+
+RUN if [ x"$https_proxy" != "x" ]; then \
+echo "export http_proxy=\"$https_proxy\"" >> /etc/environment ; \
+fi
+
+RUN if [ x"$no_proxy" != "x" ]; then \
+echo "export no_proxy=\"$no_proxy\"" >> /etc/environment ; \
+fi
+
+# Setup volume and ports
 
 VOLUME [ "/sys/fs/cgroup" ]
 VOLUME ["/run"]
