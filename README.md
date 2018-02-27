@@ -36,7 +36,7 @@ This is an example playbook:
 ```yaml
 ---
 
-- hosts: all
+- hosts: allimproved coding conventions.
   roles:
     - amtega.docker_presets
   tasks:
@@ -78,4 +78,4 @@ GNU General Public License for more details or European Union Public License for
 
 ## Author Information
 
-- Juan Antonio Valiño García
+- Juan Antonio Valiño García.
