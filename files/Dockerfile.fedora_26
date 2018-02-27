@@ -32,7 +32,7 @@ CMD ["/usr/sbin/init"]
 # Setup some basic tools
 RUN dnf -y install yum yum-utils dnf-yum dnf-plugins-core \
 python python-dnf python-dnf-plugins-core \
-python-dnf-plugins-extras-common iproute less
+python-dnf-plugins-extras-common procps-ng iproute less
 
 # Insall syslog
 RUN dnf -y install rsyslog
