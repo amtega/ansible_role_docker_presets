@@ -56,7 +56,7 @@ This is an example playbook:
 You can run the tests with the following commands:
 
 ```shell
-$ cd amtega.docker_presets/test
+$ cd amtega.docker_presets/tests
 $ ansible-playbook main.yml
 ```
 
