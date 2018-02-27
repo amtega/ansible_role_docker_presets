@@ -1,0 +1,7 @@
+---
+# Fedora 27 image
+
+name: fedora_27
+distribution: Fedora
+distribution_version: 27
+dockerfile: Dockerfile.fedora_27
