@@ -4,7 +4,7 @@
 - block:
     - name: setup fact with image build path
       set_fact:
-        docker_presets_build_path: "{{ role_path }}/files"
+        docker_presets_files: "{{ role_path }}/files"
 
     - name: search image presets
       find:
@@ -53,7 +53,7 @@
                     {}) }}
 
         extra_buildargs:
-          path: "{{ docker_presets_build_path }}"
+          path: "{{ docker_presets_files }}"
           buildargs:
             user: "{{ docker_presets_user }}"
             password: "{{ docker_presets_password }}"
