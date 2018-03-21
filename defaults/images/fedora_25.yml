@@ -1,7 +1,0 @@
----
-# Fedora 26 image
-
-name: fedora_25
-distribution: Fedora
-distribution_version: 25
-dockerfile: Dockerfile.fedora_25
