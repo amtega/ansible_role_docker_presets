@@ -6,7 +6,7 @@ This role provides also some useful filters to manage the presets.
 
 ## Requirements
 
-[Ansible 2.4+](http://docs.ansible.com/ansible/latest/intro_installation.html)
+[Ansible 2.5+](http://docs.ansible.com/ansible/latest/intro_installation.html)
 
 ## Variables
 
@@ -37,7 +37,7 @@ This is an example playbook:
 ```yaml
 ---
 
-- hosts: allimproved coding conventions.
+- hosts: all
   roles:
     - amtega.docker_presets
   tasks:
