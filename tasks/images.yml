@@ -7,18 +7,20 @@
         docker_presets_files: "{{ role_path }}/files"
 
     - name: search image presets
-      find:
+      local_action:
+        module: find
         paths: "{{ role_path }}/defaults/images"
         patterns: "*.yml"
       register: docker_presets_search_images_result
 
     - name: load image presets
-      include_vars:
+      local_action:
+        module: include_vars
         file: "{{ file.path }}"
         name: docker_presets_image
-      with_items: "{{ docker_presets_search_images_result.files }}"
+      loop: "{{ docker_presets_search_images_result.files }}"
       loop_control:
-        label: "{{ file.path }}"
+        label: "{{ file.path | basename  }}"
         loop_var: file
       register: docker_presets_load_images_result
 

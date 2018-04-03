@@ -3,18 +3,20 @@
 
 - block:
     - name: search container presets
-      find:
+      local_action:
+        module: find
         paths: "{{ role_path }}/defaults/containers"
         patterns: "*.yml"
       register: docker_presets_search_containers_result
 
     - name: load container presets
-      include_vars:
+      local_action:
+        module: include_vars
         file: "{{ file.path }}"
         name: docker_presets_container
-      with_items: "{{ docker_presets_search_containers_result.files }}"
+      loop: "{{ docker_presets_search_containers_result.files }}"
       loop_control:
-        label: "{{ file.path }}"
+        label: "{{ file.path | basename }}"
         loop_var: file
       register: docker_presets_load_containers_result
 
