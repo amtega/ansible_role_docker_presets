@@ -2,10 +2,6 @@
 # Load images presets
 
 - block:
-    - name: setup fact with image build path
-      set_fact:
-        docker_presets_files: "{{ role_path }}/files"
-
     - name: search image presets
       local_action:
         module: find
@@ -55,10 +51,26 @@
                     {}) }}
 
         extra_buildargs:
-          path: "{{ docker_presets_files }}"
           buildargs:
             user: "{{ docker_presets_user }}"
             password: "{{ docker_presets_password }}"
+
+    - name: setup directories for dockerfiles
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: 0700
+      loop: >-
+        {{ docker_presets_images | map(attribute='path') | list | unique }}
+
+    - name: setup dockerfiles
+      copy:
+        src: "files/{{ item.dockerfile | basename }}"
+        dest: "{{ item.path }}"
+        mode: 0600
+      loop: "{{ docker_presets_images }}"
+      loop_control:
+        label: "{{ item.path }}/{{ item.dockerfile }}"
   tags:
     - role::docker_presets
     - role::docker_presets::images

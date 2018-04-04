@@ -4,4 +4,5 @@
 name: centos_6
 distribution: CentOS
 distribution_version: 6
-dockerfile: Dockerfile.centos_6
+path: "/var/lib/docker/build"
+dockerfile: "Dockerfile.centos_6"

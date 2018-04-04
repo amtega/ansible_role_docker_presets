@@ -16,7 +16,6 @@ From the previous directories the role setups dynamically some variables that co
 
 - docker_presets_images
 - docker_presets_containers
-- docker_presets_files
 
 ## Filters
 
