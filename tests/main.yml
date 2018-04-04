@@ -24,12 +24,11 @@
   tags:
     - sandbox
 
-- name: setup sandbox environment
+- name: run idempotence test
   hosts: localhost
   roles:
     - role: amtega.vagrant_sandbox
       vagrant_sandbox_state: started
-      vagrant_sandbox_idempotence_test: false
   tags:
     - sandbox
 
@@ -106,6 +105,8 @@
           - docker_presets_containers
             | docker_presets_repeat(3)
             | length == docker_presets_containers | length * 3
+  tags:
+    - idempotence
 
 - name: cleanup vagrant sandbox
   hosts: localhost
