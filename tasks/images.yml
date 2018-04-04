@@ -60,7 +60,8 @@
         path: "{{ item }}"
         state: directory
         mode: 0700
-      loop: "{{ docker_presets_images | map(attribute='path') | list }}"
+      loop: >-
+        {{ docker_presets_images | map(attribute='path') | list | unique }}
 
     - name: setup dockerfiles
       copy:
