@@ -23,11 +23,15 @@
     - name: setup fact with images presets
       set_fact:
         docker_presets_images: >-
-          {{ images
+          {{ [ {} ]
+             | docker_presets_repeat(images | length)
+             | map("combine", default_path, recursive=true)
+             | map("combine", extra_buildargs, recursive=true)
              | map("combine", extra_buildargs, recursive=true)
              | map("combine", http_proxy_buildargs, recursive=true)
              | map("combine", https_proxy_buildargs, recursive=true)
              | map("combine", no_proxy_buildargs, recursive=true)
+             | map("combine", images)
              | list }}
       vars:
         images: >-
@@ -35,20 +39,26 @@
              | map(attribute="ansible_facts.docker_presets_image")
              | list }}
 
+        default_path:
+          path: >-
+            {{ (ansible_user_id == "root") | ternary("/var/lib/docker/build",
+                                                     "~/.docker/build") }}
+
         http_proxy_buildargs: >-
           {{ (ansible_env.http_proxy | default('') | length > 0)
-          | ternary({ "buildargs": { "http_proxy": ansible_env.http_proxy }},
-                    {}) }}
+             | ternary({ "buildargs": { "http_proxy": ansible_env.http_proxy }},
+                       {}) }}
 
         https_proxy_buildargs: >-
           {{ (ansible_env.https_proxy | default('') | length > 0)
-          | ternary({ "buildargs": { "https_proxy": ansible_env.https_proxy }},
-                    {}) }}
+             | ternary(
+                 { "buildargs": { "https_proxy": ansible_env.https_proxy }},
+                 {}) }}
 
         no_proxy_buildargs: >-
           {{ (ansible_env.no_proxy | default('') | length > 0)
-          | ternary({ "buildargs": { "no_proxy": ansible_env.no_proxy }},
-                    {}) }}
+             | ternary({ "buildargs": { "no_proxy": ansible_env.no_proxy }},
+                       {}) }}
 
         extra_buildargs:
           buildargs:

@@ -4,5 +4,4 @@
 name: fedora_26
 distribution: Fedora
 distribution_version: 26
-path: "/var/lib/docker/build"
 dockerfile: "Dockerfile.fedora_26"
