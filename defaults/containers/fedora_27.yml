@@ -5,3 +5,4 @@ name: fedora_27
 image: fedora_27
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+privileged: true
