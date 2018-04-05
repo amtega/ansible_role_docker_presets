@@ -46,7 +46,7 @@ def docker_presets_repeat(presets, n):
     """Repeat a preset list.
 
     Args:
-        presets (list of dicts): the presets to randomize.
+        presets (list of dicts): the presets to repeat.
         n (int): number of times to repeat the preset.
 
     Returns:
