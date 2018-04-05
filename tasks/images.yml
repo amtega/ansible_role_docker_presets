@@ -16,23 +16,21 @@
         name: docker_presets_image
       loop: "{{ docker_presets_search_images_result.files }}"
       loop_control:
-        label: "{{ file.path | basename  }}"
+        label: "{{ file.path | basename }}"
         loop_var: file
       register: docker_presets_load_images_result
 
     - name: setup fact with images presets
       set_fact:
         docker_presets_images: >-
-          {{ [ {} ]
-             | docker_presets_repeat(images | length)
-             | map("combine", default_path, recursive=true)
+          {{ images
              | map("combine", extra_buildargs, recursive=true)
              | map("combine", extra_buildargs, recursive=true)
              | map("combine", http_proxy_buildargs, recursive=true)
              | map("combine", https_proxy_buildargs, recursive=true)
              | map("combine", no_proxy_buildargs, recursive=true)
-             | map("combine", images)
-             | list }}
+             | list
+             | docker_presets_add_attributes(default_path, overwrite=false) }}
       vars:
         images: >-
           {{ docker_presets_load_images_result.results
@@ -42,7 +40,8 @@
         default_path:
           path: >-
             {{ (ansible_user_id == "root") | ternary("/var/lib/docker/build",
-                                                     "~/.docker/build") }}
+                                                     "~/.docker/build"
+                                                     | expanduser) }}
 
         http_proxy_buildargs: >-
           {{ (ansible_env.http_proxy | default('') | length > 0)
