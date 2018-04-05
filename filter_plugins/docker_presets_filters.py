@@ -6,19 +6,21 @@ from ansible.errors import AnsibleFilterError
 from datetime import datetime
 from random import randint, seed
 
-def docker_presets_add_attributes(presets, attributes):
+def docker_presets_add_attributes(presets, attributes, overwrite=False):
     """Add attributes to a set of presets.
 
     Args:
         presets (list of dicts): presets to add the new attributes.
         attributes (dict): attributes to add.
+        overwrite (bool): tells if attribute must be overwriten if present
 
     Returns:
         list of dicts: presets with attributes added in.
     """
     for preset in presets:
         for attribute in attributes:
-            preset[attribute] = attributes[attribute]
+            if attribute not in preset or overwrite:
+                preset[attribute] = attributes[attribute]
 
     return presets
 
