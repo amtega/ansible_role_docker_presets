@@ -3,7 +3,13 @@
 
 # Default ansible user and password to build images. The values of these
 # variables are added to the image presets in the 'buildargs' attribute as
-# 'user' and 'password' keys.
+# 'user' and 'password' keys
 
 docker_presets_user: root
 docker_presets_password: root
+
+# JSON query to filter the presets returned by the role. See json_query in
+# ansible documentation for details
+
+docker_presets_images_json_query: ""
+docker_presets_containers_json_query: ""

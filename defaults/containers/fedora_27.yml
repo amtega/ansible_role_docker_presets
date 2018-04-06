@@ -5,4 +5,7 @@ name: fedora_27
 image: fedora_27
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+exposed_ports: 22
+published_ports: all
+ssh_port: 22
 privileged: true

@@ -3,3 +3,6 @@
 
 name: centos_6
 image: centos_6
+exposed_ports: 22
+published_ports: all
+ssh_port: 22
