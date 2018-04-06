@@ -1,39 +1,27 @@
 ---
 # Tasks for testing role
 
-- name: configure vagrant sandbox environment
+- name: configure docker sandbox environment
   hosts: localhost
   roles:
-    - role: amtega.vagrant_presets
-  tasks:
-    - set_fact:
-        vagrant_sandbox_boxes: >-
-          {{ vagrant_presets_boxes + extra_boxes }}
-        vagrant_sandbox_vms: >-
-          {{ (vagrant_presets_vms + extra_vms)
-             | vagrant_presets_randomize_names }}
-  vars:
-    extra_boxes:
-      - name: debian_9
-        address: generic/debian9
-    extra_vms:
-      - name: debian_9
-        box: debian_9
-        hostname: debian-9
-        ansible_become: true
+    - role: amtega.docker_presets
+      docker_presets_images_json_query: >-
+        [? (starts_with(name, `centos_7`))
+           || starts_with(name, `debian`)
+           || starts_with(name, `fedora`) ]
   tags:
     - sandbox
 
 - name: run idempotence test
   hosts: localhost
   roles:
-    - role: amtega.vagrant_sandbox
-      vagrant_sandbox_state: started
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: started
   tags:
     - sandbox
 
-- name: test docker_presets role
-  hosts: vagrant_sandbox_vms
+- name: test docker_presets role with default json query filters
+  hosts: docker_sandbox_containers
   roles:
     - amtega.docker_presets
   tasks:
@@ -108,10 +96,55 @@
   tags:
     - idempotence
 
-- name: cleanup vagrant sandbox
+- name: test docker_presets role with customized json query filters
+  hosts: docker_sandbox_containers
+  roles:
+    - role: amtega.docker_presets
+      docker_presets_images_json_query: >-
+        [?distribution == `CentOS` && distribution_version > `6`]
+      docker_presets_containers_json_query: >-
+        [?starts_with(name, `centos`)]
+  tasks:
+    - name: test dynamic load of images presets
+      assert:
+        that:
+          - docker_presets_images | length > 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'centos_6') | list | length == 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'fedora_26') | list | length == 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'fedora_27') | list | length == 0
+
+    - name: test dynamic load of containers presets
+      assert:
+        that:
+          - docker_presets_containers | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos_6') | list | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos_7') | list | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'fedora_26') | list | length == 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'fedora_27') | list | length == 0
+  tags:
+    - idempotence
+
+- name: cleanup docker sandbox
   hosts: localhost
   roles:
-    - role: amtega.vagrant_sandbox
-      vagrant_sandbox_state: absent
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: absent
   tags:
     - sandbox
