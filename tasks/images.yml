@@ -20,6 +20,9 @@
         loop_var: file
       register: docker_presets_load_images_result
 
+    # The to_json | from_json trick here is a workaround to bug
+    # https://github.com/ansible/ansible/issues/20379
+
     - name: setup fact with images presets
       set_fact:
         docker_presets_images: >-
@@ -30,7 +33,10 @@
              | map("combine", https_proxy_buildargs, recursive=true)
              | map("combine", no_proxy_buildargs, recursive=true)
              | list
-             | docker_presets_add_attributes(default_path, overwrite=false) }}
+             | docker_presets_add_attributes(default_path, overwrite=false)
+             | to_json
+             | from_json
+             | json_query(docker_presets_images_json_query) }}
       vars:
         images: >-
           {{ docker_presets_load_images_result.results

@@ -5,4 +5,7 @@ name: centos_7
 image: centos_7
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+exposed_ports: 22
+published_ports: all
+ssh_port: 22
 privileged: true

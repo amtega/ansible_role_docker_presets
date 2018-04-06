@@ -1,0 +1,7 @@
+---
+# Centos 7 image
+
+name: debian_9
+distribution: Debian
+distribution_version: 9
+dockerfile: "Dockerfile.debian_9"

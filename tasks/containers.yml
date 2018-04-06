@@ -20,12 +20,18 @@
         loop_var: file
       register: docker_presets_load_containers_result
 
+    # The to_json | from_json trick here is a workaround to bug
+    # https://github.com/ansible/ansible/issues/20379
+
     - name: setup fact with containers presets
       set_fact:
         docker_presets_containers: >-
           {{ docker_presets_load_containers_result.results
              | map(attribute="ansible_facts.docker_presets_container")
-             | list }}
+             | list
+             | to_json
+             | from_json
+             | json_query(docker_presets_containers_json_query) }}
   tags:
     - role::docker_presets
     - role::docker_presets::containers

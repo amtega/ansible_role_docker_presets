@@ -1,8 +1,8 @@
 ---
-# Fedora 27 container
+# Debian 9 container
 
-name: fedora_27
-image: fedora_27
+name: debian_9
+image: centos_7
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 exposed_ports: 22
