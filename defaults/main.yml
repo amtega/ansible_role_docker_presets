@@ -11,5 +11,6 @@ docker_presets_password: root
 # JSON query to filter the presets returned by the role. See json_query in
 # ansible documentation for details
 
-docker_presets_images_json_query: ""
-docker_presets_containers_json_query: ""
+docker_presets_images_json_query: >-
+  [?starts_with(name, `centos`) || starts_with(name, `fedora`)]
+docker_presets_containers_json_query: "{{ docker_presets_images_json_query }}"
