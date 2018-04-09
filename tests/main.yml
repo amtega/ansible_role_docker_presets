@@ -83,6 +83,21 @@
             | docker_presets_randomize_names
             | selectattr('name', 'equalto', 'centos_7') | list | length == 0
 
+    - name: test docker_presets_remove_attributes filter
+      assert:
+        that:
+          - "docker_presets_images
+             | docker_presets_add_attributes({'new_attribute': 'hello world'})
+             | docker_presets_remove_attributes(['new_attribute'])
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length == 0"
+
+          - "docker_presets_containers
+             | docker_presets_add_attributes({'new_attribute': 'hello world'})
+             | docker_presets_remove_attributes(['new_attribute'])
+             | selectattr('new_attribute', 'equalto', 'hello world')
+             | list | length == 0"
+
     - name: test docker_presets_repeat filter
       assert:
         that:
