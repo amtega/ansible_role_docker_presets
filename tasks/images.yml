@@ -67,22 +67,20 @@
             user: "{{ docker_presets_user }}"
             password: "{{ docker_presets_password }}"
 
-    - name: setup directories for dockerfiles
+    - name: setup directory for dockerfiles
       file:
-        path: "{{ item }}"
+        path: "{{ docker_presets_build_path }}"
         state: directory
         mode: 0700
-      loop: >-
-        {{ docker_presets_images | map(attribute='path') | list | unique }}
 
     - name: setup dockerfiles
       copy:
-        src: "files/{{ item.dockerfile | basename }}"
-        dest: "{{ item.path }}"
+        src: "files/{{ item.dockerfile }}"
+        dest: "{{ docker_presets_build_path }}/{{ item.dockerfile }}"
         mode: 0600
       loop: "{{ docker_presets_images }}"
       loop_control:
-        label: "{{ item.path }}/{{ item.dockerfile }}"
+        label: "{{ docker_presets_build_path }}/{{ item.dockerfile }}"
   tags:
     - role::docker_presets
     - role::docker_presets::images
