@@ -44,10 +44,7 @@
              | list }}
 
         default_path:
-          path: >-
-            {{ (ansible_user_id == "root") | ternary("/var/lib/docker/build",
-                                                     "~/.docker/build"
-                                                     | expanduser) }}
+          path: "{{ docker_presets_build_path }}"
 
         http_proxy_buildargs: >-
           {{ (ansible_env.http_proxy | default('') | length > 0)

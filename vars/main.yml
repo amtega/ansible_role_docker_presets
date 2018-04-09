@@ -1,0 +1,7 @@
+---
+# Role variables
+
+docker_presets_build_path: >-
+  {{ (ansible_user_id == "root") | ternary("/var/lib/docker/build",
+                                           "~/.docker/build"
+                                           | expanduser) }}
