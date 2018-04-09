@@ -44,6 +44,22 @@ def docker_presets_randomize_names(presets):
 
     return presets
 
+def docker_presets_remove_attributes(presets, attributes):
+    """Remove attributes from a set of presets.
+
+    Args:
+        presets (list of dicts): presets to remove the attributes.
+        attributes (list): attributes to remove.
+
+    Returns:
+        list of dicts: presets with attributes removed.
+    """
+    for preset in presets:
+        for attribute in attributes:
+            preset.pop(attribute, None)
+
+    return presets
+
 def docker_presets_repeat(presets, n):
     """Repeat a preset list.
 
@@ -68,5 +84,7 @@ class FilterModule(object):
         return {
             'docker_presets_add_attributes': docker_presets_add_attributes,
             'docker_presets_randomize_names': docker_presets_randomize_names,
+            'docker_presets_remove_attributes':
+                docker_presets_remove_attributes,
             'docker_presets_repeat': docker_presets_repeat
         }
