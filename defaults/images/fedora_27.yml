@@ -5,3 +5,4 @@ name: fedora_27
 distribution: Fedora
 distribution_version: 27
 dockerfile: "Dockerfile.fedora_27"
+repository: "localhost:5000/fedora_27"
