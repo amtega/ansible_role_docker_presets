@@ -5,3 +5,4 @@ name: centos_6
 distribution: CentOS
 distribution_version: 6
 dockerfile: "Dockerfile.centos_6"
+repository: "localhost:5000/centos_6"
