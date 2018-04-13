@@ -1,8 +1,8 @@
 ---
 # Centos 7 image
 
-name: debian_9
+name: debian-9
 distribution: Debian
 distribution_version: 9
 dockerfile: "Dockerfile.debian_9"
-repository: "localhost:5000/debian_9"
+repository: "localhost:5000/debian-9"

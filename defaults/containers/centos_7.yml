@@ -1,8 +1,8 @@
 ---
 # Centos 7 container
 
-name: centos_7
-image: centos_7
+name: centos-7
+image: centos-7
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 exposed_ports: 22

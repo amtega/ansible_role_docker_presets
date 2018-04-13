@@ -1,8 +1,8 @@
 ---
 # Fedora 27 container
 
-name: fedora_27
-image: fedora_27
+name: fedora-27
+image: fedora-27
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 exposed_ports: 22

@@ -1,8 +1,8 @@
 ---
 # Centos 7 image
 
-name: centos_7
+name: centos-7
 distribution: CentOS
 distribution_version: 7
 dockerfile: "Dockerfile.centos_7"
-repository: "localhost:5000/centos_7"
+repository: "localhost:5000/centos-7"
