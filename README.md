@@ -24,7 +24,7 @@ The role provides these filters to manipulate the provided presets:
 - docker_presets_add_attributes: adds attributes to a set of presets
 - docker_presets_randomize_names: randomize the name attribute in a set of presets
 - docker_presets_remove_attributes: remove attributes from a set of presets
-- docker_presets_repeat filter: repeat a preset a number of times
+- docker_presets_repeat: repeat a preset a number of times
 
 ## Dependencies
 
