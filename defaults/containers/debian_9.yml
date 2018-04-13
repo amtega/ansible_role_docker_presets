@@ -2,7 +2,7 @@
 # Debian 9 container
 
 name: debian_9
-image: centos_7
+image: debian_9
 volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 exposed_ports: 22

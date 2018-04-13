@@ -18,7 +18,7 @@ RUN apt-get -y upgrade
 
 # Setup systemd
 ENV container docker
-RUN apt-get -y install systemd
+RUN apt-get -y install systemd systemd-sysv
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
@@ -38,9 +38,10 @@ RUN apt-get -y install python procps iproute less
 RUN apt-get -y install rsyslog
 
 # Setup ssh
-RUN apt-get -y install openssh-server sudo openssh-client
+RUN apt-get -y install openssh-server sudo openssh-client sshpass
+RUN mkdir -p /var/run/sshd
 RUN rm -f /etc/ssh/*key
-RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo "    PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
@@ -72,4 +73,4 @@ EXPOSE 22
 
 # Setup start script
 
-CMD ["/usr/sbin/init"]
+CMD ["/sbin/init"]

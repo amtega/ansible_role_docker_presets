@@ -7,8 +7,9 @@
     - role: amtega.docker_presets
       docker_presets_images_json_query: >-
         [? (starts_with(name, `centos_7`))
-           || starts_with(name, `debian`)
-           || starts_with(name, `fedora`) ]
+           || starts_with(name, `debian_9`)
+           || starts_with(name, `fedora_26`)
+           || starts_with(name, `fedora_27`) ]
   tags:
     - sandbox
 
