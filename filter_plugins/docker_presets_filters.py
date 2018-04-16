@@ -40,7 +40,7 @@ def docker_presets_randomize_names(presets):
             basename = "container"
 
         seed(datetime.now())
-        preset["name"] = "{}_{}".format(basename, randint(0, 99999999))
+        preset["name"] = "{}-{}".format(basename, randint(0, 99999999))
 
     return presets
 
