@@ -38,10 +38,10 @@
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - docker_presets_images
-            | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
 
           - docker_presets_images
-            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
     - name: test dynamic load of containers presets
       assert:
@@ -55,10 +55,10 @@
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
           - docker_presets_containers
-            | selectattr('name', 'equalto', 'fedora-26') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
 
           - docker_presets_containers
-            | selectattr('name', 'equalto', 'fedora-27') | list | length > 0
+            | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
     - name: test docker_presets_add_attributes filter
       assert:
