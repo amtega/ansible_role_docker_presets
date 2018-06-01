@@ -1,0 +1,73 @@
+FROM fedora:28
+
+ARG user=root
+ARG password=root
+ARG http_proxy
+ARG https_proxy
+ARG no_proxy
+
+ENV container=docker
+ENV http_proxy=${http_proxy}
+ENV https_proxy=${https_proxy}
+ENV no_proxy=${no_proxy}
+
+# Update all base packages to keep them fresh
+RUN dnf -y update; dnf clean all
+
+# Setup systemd
+ENV container docker
+
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
+systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+VOLUME [ "/sys/fs/cgroup" ]
+
+# Setup some basic tools
+RUN dnf -y install yum yum-utils dnf-yum dnf-plugins-core \
+python python-dnf python-dnf-plugins-core \
+python-dnf-plugins-extras-common procps-ng iproute less
+
+# Insall syslog
+RUN dnf -y install rsyslog
+
+# Setup ssh
+RUN dnf -y install openssh-server sudo openssh-clients sshpass
+RUN sed -i 's/#PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
+    ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
+    ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
+RUN echo "$user:$password" | chpasswd
+RUN systemctl enable sshd.service
+RUN rm -f /var/run/nologin /etc/nologin
+RUN rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf
+
+# Setup proxy environment variables
+
+RUN if [ x"$http_proxy" != "x" ]; then \
+echo "export http_proxy=\"$http_proxy\"" >> /etc/environment ; \
+fi
+
+RUN if [ x"$https_proxy" != "x" ]; then \
+echo "export https_proxy=\"$https_proxy\"" >> /etc/environment ; \
+fi
+
+RUN if [ x"$no_proxy" != "x" ]; then \
+echo "export no_proxy=\"$no_proxy\"" >> /etc/environment ; \
+fi
+
+# Setup volume and ports
+
+VOLUME [ "/sys/fs/cgroup" ]
+VOLUME ["/run"]
+
+EXPOSE 22
+
+# Setup start script
+
+CMD ["/usr/sbin/init"]
