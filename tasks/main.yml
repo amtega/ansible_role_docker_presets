@@ -1,6 +1,12 @@
 ---
 # Role tasks
 
+- name: sanity checks
+  import_tasks: check.yml
+  tags:
+    - role::docker_presets
+    - role::docker_presets::check
+
 - name: configure images presets
   include_tasks: images.yml
   tags:
