@@ -47,20 +47,23 @@
           path: "{{ docker_presets_build_path }}"
 
         http_proxy_buildargs: >-
-          {{ (ansible_env.http_proxy | default('') | length > 0)
-             | ternary({ "buildargs": { "http_proxy": ansible_env.http_proxy }},
-                       {}) }}
+          {{ (ansible_facts.env.http_proxy | default('') | length > 0)
+             | ternary(
+                 { "buildargs": { "http_proxy": ansible_facts.env.http_proxy }},
+                 {}) }}
 
         https_proxy_buildargs: >-
-          {{ (ansible_env.https_proxy | default('') | length > 0)
+          {{ (ansible_facts.env.https_proxy | default('') | length > 0)
              | ternary(
-                 { "buildargs": { "https_proxy": ansible_env.https_proxy }},
+                 { "buildargs": {
+                      "https_proxy": ansible_facts.env.https_proxy }},
                  {}) }}
 
         no_proxy_buildargs: >-
-          {{ (ansible_env.no_proxy | default('') | length > 0)
-             | ternary({ "buildargs": { "no_proxy": ansible_env.no_proxy }},
-                       {}) }}
+          {{ (ansible_facts.env.no_proxy | default('') | length > 0)
+             | ternary(
+                 { "buildargs": { "no_proxy": ansible_facts.env.no_proxy }},
+                 {}) }}
 
         extra_buildargs:
           buildargs:

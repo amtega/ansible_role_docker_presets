@@ -20,6 +20,6 @@ docker_presets_supported_versions:
 # Docker presets build path
 
 docker_presets_build_path: >-
-  {{ (ansible_user_id == "root") | ternary("/var/lib/docker/build",
-                                           "~/.docker/build"
-                                           | expanduser) }}
+  {{ (ansible_facts.user_id == "root") | ternary("/var/lib/docker/build",
+                                                 "~/.docker/build"
+                                                 | expanduser) }}
