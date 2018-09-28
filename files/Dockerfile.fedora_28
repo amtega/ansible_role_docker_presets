@@ -33,6 +33,8 @@ RUN dnf -y install yum yum-utils dnf-yum dnf-plugins-core \
 python python-dnf python-dnf-plugins-core \
 python-dnf-plugins-extras-common procps-ng iproute less
 
+RUN dnf -y install coreutils --allowerasing
+
 # Insall syslog
 RUN dnf -y install rsyslog
 
