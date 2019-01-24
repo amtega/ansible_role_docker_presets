@@ -3,15 +3,14 @@
 
 - block:
     - name: search image presets
-      local_action:
-        module: find
+      find:
         paths: "{{ role_path }}/defaults/images"
         patterns: "*.yml"
       register: docker_presets_search_images_result
+      delegate_to: localhost
 
     - name: load image presets
-      local_action:
-        module: include_vars
+      include_vars:
         file: "{{ file.path }}"
         name: docker_presets_image
       loop: "{{ docker_presets_search_images_result.files }}"
@@ -19,6 +18,7 @@
         label: "{{ file.path | basename }}"
         loop_var: file
       register: docker_presets_load_images_result
+      delegate_to: localhost
 
     # The to_json | from_json trick here is a workaround to bug
     # https://github.com/ansible/ansible/issues/20379
