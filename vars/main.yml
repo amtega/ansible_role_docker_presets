@@ -1,22 +1,6 @@
 ---
 # Role variables
 
-# Supported distributions
-
-docker_presets_supported_distributions:
-  - centos
-  - debian
-  - fedora
-  - rhel
-
-# Supported distributions versions
-
-docker_presets_supported_versions:
-  centos: 6
-  debian: 9
-  fedora: 27
-  rhel: 6
-
 # Docker presets build path
 
 docker_presets_build_path: >-
