@@ -28,7 +28,7 @@ The role provides these filters to manipulate the provided presets:
 
 ## Dependencies
 
-N/A
+[amtega.check_platform](https://galaxy.ansible.com/amtega/check_platform)
 
 ## Example Playbook
 
@@ -70,7 +70,7 @@ $ ansible-playbook main.yml
 
 ## License
 
-Copyright (C) 2018 AMTEGA - Xunta de Galicia
+Copyright (C) 2019 AMTEGA - Xunta de Galicia
 
 This role is free software: you can redistribute it and/or modify it under the terms of:
 
