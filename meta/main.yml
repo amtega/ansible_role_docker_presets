@@ -24,9 +24,12 @@ galaxy_info:
     - system
     - cloud
 
-  dependencies:
-    - role: amtega.check_platform
-      check_platform_distributions:
-        centos: 7
-        fedora: 27
-        rhel: 7
+dependencies:
+  - role: amtega.check_platform
+    check_platform_distributions:
+      centos: 7
+      debian: 9
+      fedora: 27
+      rhel: 7
+    tags:
+      - role::docker_presets

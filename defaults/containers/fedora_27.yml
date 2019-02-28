@@ -8,4 +8,5 @@ volumes:
 exposed_ports: 22
 published_ports: all
 ssh_port: 22
+ansible_python_interpreter: /usr/bin/python3
 privileged: true
