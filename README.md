@@ -4,10 +4,6 @@ This is an [Ansible](http://www.ansible.com) role to setup a set of facts with d
 
 This role provides also some useful filters to manage the presets.
 
-## Requirements
-
-[Ansible 2.7+](http://docs.ansible.com/ansible/latest/intro_installation.html)
-
 ## Variables
 
 The role reads dynamically the images and containers config from directories 'defaults/images' and 'defaults/containers'.
@@ -26,9 +22,6 @@ The role provides these filters to manipulate the provided presets:
 - docker_presets_remove_attributes: remove attributes from a set of presets
 - docker_presets_repeat: repeat a preset a number of times
 
-## Dependencies
-
-[amtega.check_platform](https://galaxy.ansible.com/amtega/check_platform)
 
 ## Example Playbook
 
