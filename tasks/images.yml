@@ -2,14 +2,14 @@
 # Load images presets
 
 - block:
-    - name: search image presets
+    - name: Search image presets
       find:
         paths: "{{ role_path }}/defaults/images"
         patterns: "*.yml"
       register: docker_presets_search_images_result
       delegate_to: localhost
 
-    - name: load image presets
+    - name: Load image presets
       include_vars:
         file: "{{ file.path }}"
         name: docker_presets_image
@@ -23,7 +23,7 @@
     # The to_json | from_json trick here is a workaround to bug
     # https://github.com/ansible/ansible/issues/20379
 
-    - name: setup fact with images presets
+    - name: Setup fact with images presets
       set_fact:
         docker_presets_images: >-
           {{ images
@@ -70,13 +70,13 @@
             user: "{{ docker_presets_user }}"
             password: "{{ docker_presets_password }}"
 
-    - name: setup directory for dockerfiles
+    - name: Setup directory for dockerfiles
       file:
         path: "{{ docker_presets_build_path }}"
         state: directory
         mode: 0700
 
-    - name: setup dockerfiles
+    - name: Setup dockerfiles
       copy:
         src: "files/{{ item.dockerfile }}"
         dest: "{{ docker_presets_build_path }}/{{ item.dockerfile }}"
