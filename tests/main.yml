@@ -1,7 +1,7 @@
 ---
 # Tasks for testing role
 
-- name: configure docker sandbox environment
+- name: Configure docker sandbox environment
   hosts: localhost
   roles:
     - role: amtega.docker_presets
@@ -13,7 +13,7 @@
   tags:
     - sandbox
 
-- name: run idempotence test
+- name: Run idempotence test
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
@@ -21,12 +21,12 @@
   tags:
     - sandbox
 
-- name: test docker_presets role with default json query filters
+- name: Test docker_presets role with default json query filters
   hosts: docker_sandbox_containers
   roles:
     - amtega.docker_presets
   tasks:
-    - name: test dynamic load of images presets
+    - name: Test dynamic load of images presets
       assert:
         that:
           - docker_presets_images | length > 0
@@ -43,7 +43,7 @@
           - docker_presets_images
             | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
-    - name: test dynamic load of containers presets
+    - name: Test dynamic load of containers presets
       assert:
         that:
           - docker_presets_containers | length > 0
@@ -60,7 +60,7 @@
           - docker_presets_containers
             | selectattr('name', 'equalto', 'fedora-28') | list | length > 0
 
-    - name: test docker_presets_add_attributes filter
+    - name: Test docker_presets_add_attributes filter
       assert:
         that:
           - "docker_presets_images
@@ -73,7 +73,7 @@
              | selectattr('new_attribute', 'equalto', 'hello world')
              | list | length > 0"
 
-    - name: test docker_presets_randomize_names filter
+    - name: Test docker_presets_randomize_names filter
       assert:
         that:
           - docker_presets_images
@@ -84,7 +84,7 @@
             | docker_presets_randomize_names
             | selectattr('name', 'equalto', 'centos-7') | list | length == 0
 
-    - name: test docker_presets_remove_attributes filter
+    - name: Test docker_presets_remove_attributes filter
       assert:
         that:
           - "'new_attribute'
@@ -99,7 +99,7 @@
                         {'new_attribute': 'hello world'})
                     | docker_presets_remove_attributes(['new_attribute'])"
 
-    - name: test docker_presets_repeat filter
+    - name: Test docker_presets_repeat filter
       assert:
         that:
           - docker_presets_images
@@ -112,7 +112,7 @@
   tags:
     - idempotence
 
-- name: test docker_presets role with customized json query filters
+- name: Test docker_presets role with customized json query filters
   hosts: docker_sandbox_containers
   roles:
     - role: amtega.docker_presets
@@ -121,7 +121,7 @@
       docker_presets_containers_json_query: >-
         [?starts_with(name, `centos`)]
   tasks:
-    - name: test dynamic load of images presets
+    - name: Test dynamic load of images presets
       assert:
         that:
           - docker_presets_images | length > 0
@@ -129,7 +129,7 @@
           - docker_presets_images
             | selectattr('name', 'equalto', 'centos-7') | list | length > 0
 
-    - name: test dynamic load of containers presets
+    - name: Test dynamic load of containers presets
       assert:
         that:
           - docker_presets_containers | length > 0
@@ -142,7 +142,7 @@
   tags:
     - idempotence
 
-- name: cleanup docker sandbox
+- name: Cleanup docker sandbox
   hosts: localhost
   roles:
     - role: amtega.docker_sandbox
