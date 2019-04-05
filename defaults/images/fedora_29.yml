@@ -1,0 +1,8 @@
+---
+# Fedora 29 image
+
+name: fedora-29
+distribution: Fedora
+distribution_version: 29
+dockerfile: "Dockerfile.fedora_29"
+repository: "localhost:5000/fedora-29"
