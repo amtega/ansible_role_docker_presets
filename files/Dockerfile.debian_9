@@ -12,32 +12,39 @@ ENV https_proxy=${https_proxy}
 ENV no_proxy=${no_proxy}
 
 # Update all base packages to keep them fresh
+
 RUN apt-get update
 RUN apt-get -y install apt-utils
 RUN apt-get -y upgrade
 
 # Setup systemd
+
 ENV container docker
 RUN apt-get -y install systemd systemd-sysv
 
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
-systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
-VOLUME [ "/sys/fs/cgroup" ]
+RUN cd /lib/systemd/system/sysinit.target.wants/; \
+    for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done
+
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+    /etc/systemd/system/*.wants/* \
+    /lib/systemd/system/local-fs.target.wants/* \
+    /lib/systemd/system/sockets.target.wants/*udev* \
+    /lib/systemd/system/sockets.target.wants/*initctl* \
+    /lib/systemd/system/basic.target.wants/* \
+    /lib/systemd/system/anaconda.target.wants/*
+
+VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
 
 # Setup some basic tools
+
 RUN apt-get -y install python procps iproute less
 
 # Insall syslog
+
 RUN apt-get -y install rsyslog
 
 # Setup ssh
+
 RUN apt-get -y install openssh-server sudo openssh-client sshpass
 RUN mkdir -p /var/run/sshd
 RUN rm -f /etc/ssh/*key
@@ -46,9 +53,9 @@ RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
     ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
 RUN echo "$user:$password" | chpasswd
-RUN systemctl enable ssh.service
 RUN rm -f /var/run/nologin /etc/nologin
 RUN rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf
+RUN systemctl enable ssh.service
 
 # Setup proxy environment variables
 
