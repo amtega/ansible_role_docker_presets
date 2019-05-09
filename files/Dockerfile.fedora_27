@@ -15,24 +15,10 @@ ENV no_proxy=${no_proxy}
 
 RUN dnf -y update
 
-# Setup systemd
+# Setup systemctl replacement
 
-ENV container docker
-
-RUN dnf -y install systemd
-
-RUN cd /lib/systemd/system/sysinit.target.wants/; \
-    for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i; done
-
-RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
-    /etc/systemd/system/*.wants/* \
-    /lib/systemd/system/local-fs.target.wants/* \
-    /lib/systemd/system/sockets.target.wants/*udev* \
-    /lib/systemd/system/sockets.target.wants/*initctl* \
-    /lib/systemd/system/basic.target.wants/* \
-    /lib/systemd/system/anaconda.target.wants/*
-
-VOLUME [ "/sys/fs/cgroup", "/tmp", "/run" ]
+ADD https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py /usr/bin/systemctl
+RUN chmod 755 /usr/bin/systemctl
 
 # Setup some basic tools
 
@@ -40,7 +26,9 @@ RUN dnf -y install yum yum-utils dnf-yum dnf-plugins-core \
 python python-dnf python-dnf-plugins-core \
 python-dnf-plugins-extras-common procps-ng iproute less
 
-# Insall syslog
+RUN dnf -y install coreutils --allowerasing
+
+# Install syslog
 
 RUN dnf -y install rsyslog
 

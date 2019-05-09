@@ -3,10 +3,7 @@
 
 name: fedora-27
 image: fedora-27
-volumes:
-  - /sys/fs/cgroup:/sys/fs/cgroup:ro
 exposed_ports: 22
 published_ports: all
 ssh_port: 22
 ansible_python_interpreter: /usr/bin/python3
-privileged: true
