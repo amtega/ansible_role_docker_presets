@@ -11,12 +11,12 @@
 
     - name: Load container presets
       include_vars:
-        file: "{{ file.path }}"
+        file: "{{ docker_presets_item.path }}"
         name: docker_presets_container
       loop: "{{ docker_presets_search_containers_result.files }}"
       loop_control:
-        label: "{{ file.path | basename }}"
-        loop_var: file
+        label: "{{ docker_presets_item.path | basename }}"
+        loop_var: docker_presets_item
       register: docker_presets_load_containers_result
       delegate_to: localhost
 

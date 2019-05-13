@@ -11,12 +11,12 @@
 
     - name: Load image presets
       include_vars:
-        file: "{{ file.path }}"
+        file: "{{ docker_presets_item.path }}"
         name: docker_presets_image
       loop: "{{ docker_presets_search_images_result.files }}"
       loop_control:
-        label: "{{ file.path | basename }}"
-        loop_var: file
+        label: "{{ docker_presets_item.path | basename }}"
+        loop_var: docker_presets_item
       register: docker_presets_load_images_result
       delegate_to: localhost
 
@@ -78,12 +78,15 @@
 
     - name: Setup dockerfiles
       copy:
-        src: "files/{{ item.dockerfile }}"
-        dest: "{{ docker_presets_build_path }}/{{ item.dockerfile }}"
+        src: "files/{{ docker_presets_item.dockerfile }}"
+        dest: >-
+          {{ docker_presets_build_path }}/{{ docker_presets_item.dockerfile }}
         mode: 0600
       loop: "{{ docker_presets_images }}"
       loop_control:
-        label: "{{ docker_presets_build_path }}/{{ item.dockerfile }}"
+        loop_var: docker_presets_item
+        label: >-
+          {{ docker_presets_build_path }}/{{ docker_presets_item.dockerfile }}
   tags:
     - role::docker_presets
     - role::docker_presets::images
