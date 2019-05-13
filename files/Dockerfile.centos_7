@@ -15,7 +15,6 @@ ENV no_proxy=${no_proxy}
 
 RUN yum -y update
 
-<<<<<<< HEAD
 # Setup systemd
 
 ENV container docker
@@ -36,19 +35,6 @@ VOLUME [ "/sys/fs/cgroup" ]
 RUN yum -y install yum yum-utils python iproute less coreutils
 
 # Install syslog
-=======
-# Setup systemctl replacement
-
-ADD https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py /usr/bin/systemctl
-RUN chmod 755 /usr/bin/systemctl
-
-# Setup some basic tools
-
-RUN yum -y install iproute less
-RUN yum -y install coreutils --allowerasing
-
-# Insall syslog
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 RUN yum -y install rsyslog
 
@@ -78,11 +64,7 @@ RUN if [ x"$no_proxy" != "x" ]; then \
 echo "export no_proxy=\"$no_proxy\"" >> /etc/environment ; \
 fi
 
-<<<<<<< HEAD
 # Cleanup dnf stuff
-=======
-# Clean yum stuff
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 RUN yum clean all
 

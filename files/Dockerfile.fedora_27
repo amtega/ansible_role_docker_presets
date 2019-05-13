@@ -15,7 +15,6 @@ ENV no_proxy=${no_proxy}
 
 RUN dnf -y update
 
-<<<<<<< HEAD
 # Setup systemd
 
 ENV container docker
@@ -30,12 +29,6 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
-=======
-# Setup systemctl replacement
-
-ADD https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py /usr/bin/systemctl
-RUN chmod 755 /usr/bin/systemctl
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 # Setup some basic tools
 
@@ -45,13 +38,6 @@ python-dnf-plugins-extras-common procps-ng iproute less coreutils
 
 # Install syslog
 
-<<<<<<< HEAD
-=======
-RUN dnf -y install coreutils --allowerasing
-
-# Install syslog
-
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 RUN dnf -y install rsyslog
 
 # Setup ssh
@@ -64,11 +50,7 @@ RUN ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
 RUN echo "$user:$password" | chpasswd
 RUN rm -f /var/run/nologin /etc/nologin
 RUN rm -f /usr/lib/tmpfiles.d/systemd-nologin.conf
-<<<<<<< HEAD
-RUN systemctl enable sshd.service
-=======
 RUN systemctl enable sshd
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 # Setup proxy environment variables
 
@@ -84,11 +66,7 @@ RUN if [ x"$no_proxy" != "x" ]; then \
 echo "export no_proxy=\"$no_proxy\"" >> /etc/environment ; \
 fi
 
-<<<<<<< HEAD
 # Cleanup dnf stuff
-=======
-# Clean dnf stuff
->>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 RUN dnf clean all
 
@@ -98,5 +76,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 VOLUME [ "/run" ]
 
 EXPOSE 22
+
+# Setup start script
 
 CMD ["/usr/sbin/init"]
