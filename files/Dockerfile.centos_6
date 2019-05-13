@@ -17,7 +17,11 @@ RUN yum -y update
 
 # Install initscripts, but turn off all services by default
 
+<<<<<<< HEAD
 RUN yum -y install initscripts; yum clean all; rm /etc/rc.d/rc*.d/*
+=======
+RUN yum -y install initscripts; rm /etc/rc.d/rc*.d/*
+>>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 # Disable ttys
 
@@ -26,11 +30,20 @@ mv /etc/init/tty.conf /etc/init/tty.conf.disabled; \
 mv /etc/init/start-ttys.conf /etc/init/start-ttys.conf.disabled
 
 # Setup some basic tools
+<<<<<<< HEAD
 
 RUN yum -y install yum yum-utils python iproute less coreutils
 
 # Install syslog
 
+=======
+
+RUN yum -y install iproute less
+RUN yum -y install coreutils --allowerasing
+
+# Install syslog
+
+>>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 RUN yum -y install rsyslog
 
 # Setup ssh
@@ -57,7 +70,11 @@ RUN if [ x"$no_proxy" != "x" ]; then \
 echo "export no_proxy=\"$no_proxy\"" >> /etc/environment ; \
 fi
 
+<<<<<<< HEAD
 # Cleanup yum stuff
+=======
+# Clean yum stuff
+>>>>>>> de99c5bc68cc8c4d29d601229886a22ab35fdec1
 
 RUN yum clean all
 
