@@ -11,6 +11,10 @@ ENV http_proxy=${http_proxy}
 ENV https_proxy=${https_proxy}
 ENV no_proxy=${no_proxy}
 
+# Reinstall glib-common packages to make locales available
+
+RUN yum -y reinstall glibc-common
+
 # Update all base packages to keep them fresh
 
 RUN yum -y update
