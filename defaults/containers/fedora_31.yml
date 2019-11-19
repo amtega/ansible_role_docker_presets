@@ -1,0 +1,12 @@
+---
+# Fedora 31 container
+
+name: fedora-31
+image: fedora-31
+volumes:
+  - /sys/fs/cgroup:/sys/fs/cgroup:ro
+exposed_ports: 22
+published_ports: all
+ssh_port: 22
+ansible_python_interpreter: /usr/bin/python3
+privileged: true
