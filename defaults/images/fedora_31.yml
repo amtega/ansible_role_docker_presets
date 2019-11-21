@@ -1,0 +1,8 @@
+---
+# Fedora 31 image
+
+name: fedora-31
+distribution: Fedora
+distribution_version: 31
+dockerfile: "Dockerfile.fedora_31"
+repository: "localhost:5000/fedora-31"
