@@ -22,7 +22,6 @@ The role provides these filters to manipulate the provided presets:
 - docker_presets_remove_attributes: remove attributes from a set of presets
 - docker_presets_repeat: repeat a preset a number of times
 
-
 ## Example Playbook
 
 This is an example playbook:
