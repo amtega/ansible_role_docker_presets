@@ -1,15 +1,6 @@
 ---
 # Role tasks
 
-- include_role:
-    name: amtega.check_platform
-  vars:
-    check_platform_distributions:
-      centos: 7
-      debian: 9
-      fedora: 29
-      rhel: 7
-
 - name: Configure images presets
   include_tasks: images.yml
   tags:
