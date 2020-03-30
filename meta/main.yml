@@ -7,7 +7,7 @@ galaxy_info:
   description: Setup a set of facts with docker images and containers
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
-  min_ansible_version: 2.8
+  min_ansible_version: 2.9
   platforms:
     - name: EL
       versions:
@@ -27,6 +27,5 @@ dependencies:
     vars:
       check_platform_distributions:
         centos: 7
-        debian: 9
         fedora: 29
         rhel: 7
