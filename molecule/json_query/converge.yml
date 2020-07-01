@@ -1,0 +1,26 @@
+---
+
+- name: Converge
+  hosts: molecule_hosts
+  gather_facts: no
+  roles:
+    - amtega.docker_presets
+  tasks:
+    - name: Test dynamic load of images presets
+      assert:
+        that:
+          - docker_presets_images | length > 0
+
+          - docker_presets_images
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
+
+    - name: Test dynamic load of containers presets
+      assert:
+        that:
+          - docker_presets_containers | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos-6') | list | length > 0
+
+          - docker_presets_containers
+            | selectattr('name', 'equalto', 'centos-7') | list | length > 0
